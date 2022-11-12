@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Место</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body class="page">
+  <header class="header">
+    <img class="header__logo" src="./images/logo.svg" alt="логотип место">
+  </header>
+  <main class="main">
+    <section class="profile">
+    <img class="profile__avatar" src="./images/image.jpg" alt="аватар">
+    <div class="profile__info">
+      <h1 class="profile__title">Жак-Ив Кусто</h1>
+      <button class="profile__button-edit button"></button>
+      <h2 class="profile__subtitle">Исследователь океана</h2>
+    </div>
+    <button class="profile__button-add button"></button>
+    </section>
+    <section class="elements">
+      <div class="element">
+        <img class="element__img" src="./images/Pyatigorsk.jpg" alt="Пятигорск">
+        <div class="element__info">
+          <h3 class="element__title">Пятигорск</h3>
+          <button class="element__button button"></button>
+        </div>
+      </div>
+      <div class="element">
+        <img class="element__img" src="./images/Adigeya.jpg" alt="Адыгея">
+        <div class="element__info">
+          <h3 class="element__title">Адыгея</h3>
+          <button class="element__button button"></button>
+        </div>
+      </div>
+      <div class="element">
+        <img class="element__img" src="./images/Ivanovo.jpg" alt="Иваново">
+        <div class="element__info">
+          <h3 class="element__title">Иваново</h3>
+          <button class="element__button button"></button>
+        </div>
+      </div>
+
+      <div class="element">
+        <img class="element__img" src="./images/Yaroslavl-region.jpg" alt="Ярославская область">
+        <div class="element__info">
+          <h3 class="element__title">Ярославская область</h3>
+          <button class="element__button button"></button>
+        </div>
+      </div>
+
+      <div class="element">
+        <img class="element__img" src="./images/Vyborg.jpg" alt="Выборг">
+        <div class="element__info">
+          <h3 class="element__title">Выборг</h3>
+          <button class="element__button button"></button>
+        </div>
+      </div>
+
+      <div class="element">
+        <img class="element__img" src="./images/Kaliningrad.jpg" alt="Калининград">
+        <div class="element__info">
+          <h3 class="element__title">Калининград</h3>
+          <button class="element__button button"></button>
+        </div>
+      </div>
+    
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__autor">© 2020 Mesto Russia</p>
+  </footer>
+  <div class="popup">
+    <div class="popup__container">
+      <button class="popup__button-close button"></button>
+      <form class="popup__content">
+     <h4 class="popup__profile">Редактировать профиль</h4> 
+     <input class="popup__title" type="text" value="">
+     <input class="popup__subtitle" type="text" value="">
+     <button class="popup__button-save button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <script src="./script/index.js"></script>
+</body>
+</html>
