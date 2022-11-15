@@ -3,5 +3,9 @@
   height: 19px;
   background-image: url("../../../images/Vector.svg");
   border: none;
-  background-color: white;
+  background-color: transparent;
+}
+
+.element__button:hover {
+  opacity: .5;
 }
