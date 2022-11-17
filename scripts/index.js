@@ -15,8 +15,8 @@ function closePopup() {
 };
 
 let formElement = document.querySelector(".popup__content");
-let nameInput = document.querySelector(".popup__form_title");
-let jobInput = document.querySelector(".popup__form_subtitle");
+let nameInput = document.querySelector(".popup__form_type_name");
+let jobInput = document.querySelector(".popup__form_type_job");
 let profileTitle = document.querySelector(".profile__title");
 let profileSubtitle = document.querySelector(".profile__subtitle");
 
@@ -32,6 +32,3 @@ function formSubmitHandler(evt) {
   closePopup();
 
 };
-
-
-

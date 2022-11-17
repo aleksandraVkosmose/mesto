@@ -3,10 +3,11 @@
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 6px 18px;
+  padding-left: 48px;
 
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 510px) {
   .profile__info {
     max-width: 282px;
     margin: 0 auto;
