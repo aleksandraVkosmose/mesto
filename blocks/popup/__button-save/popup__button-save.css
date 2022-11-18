@@ -14,11 +14,12 @@
   .popup__button-save {
     width: 238px;
     height: 46px;
-    margin-top: 58px;
+    margin-top: 45px;
     font-size: 14px;
   }
 }
 
 .popup__button-save:hover {
   opacity: .8;
+  cursor: pointer;
 }

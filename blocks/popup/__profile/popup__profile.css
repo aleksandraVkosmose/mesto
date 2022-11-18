@@ -9,7 +9,7 @@
 @media screen and (max-width: 510px) {
   .popup__profile {
     font-size: 18px;
-    line-height: 1;
+    line-height: 1.22;
     padding-bottom: 45px;
   }
 }
