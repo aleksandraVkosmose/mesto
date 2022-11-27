@@ -22,71 +22,59 @@
       </div>
       <button class="profile__button-add button" type="button"></button>
     </section>
+  
     <section class="elements">
-      <article class="element">
-        <img class="element__img" src="./images/Pyatigorsk.jpg" alt="Пятигорск">
-        <div class="element__info">
-          <h3 class="element__title">Пятигорск</h3>
-          <button class="element__button" type="button"></button>
-        </div>
-      </article>
-
-      <article class="element">
-        <img class="element__img" src="./images/Adigeya.jpg" alt="Адыгея">
-        <div class="element__info">
-          <h3 class="element__title">Адыгея</h3>
-          <button class="element__button" type="button"></button>
-        </div>
-      </article>
-
-      <article class="element">
-        <img class="element__img" src="./images/Ivanovo.jpg" alt="Иваново">
-        <div class="element__info">
-          <h3 class="element__title">Иваново</h3>
-          <button class="element__button" type="button"></button>
-        </div>
-      </article>
-
-      <article class="element">
-        <img class="element__img" src="./images/Yaroslavl-region.jpg" alt="Ярославская область">
-        <div class="element__info">
-          <h3 class="element__title">Ярославская область</h3>
-          <button class="element__button" type="button"></button>
-        </div>
-      </article>
-
-      <article class="element">
-        <img class="element__img" src="./images/Vyborg.jpg" alt="Выборг">
-        <div class="element__info">
-          <h3 class="element__title">Выборг</h3>
-          <button class="element__button" type="button"></button>
-        </div>
-      </article>
-
-      <article class="element">
-        <img class="element__img" src="./images/Kaliningrad.jpg" alt="Калининград">
-        <div class="element__info">
-          <h3 class="element__title">Калининград</h3>
-          <button class="element__button" type="button"></button>
-        </div>
-      </article>
-
+      
     </section>
+  
   </main>
   <footer class="footer">
     <p class="footer__autor">© 2020 Mesto Russia</p>
   </footer>
-  <div class="popup">
-    <div class="popup__container">
-      <button class="popup__button-close button" type="button"></button>
-      <form class="popup__content" name="edit-from">
-        <h4 class="popup__profile">Редактировать профиль</h4>
+  <!-- popup редактировать профиль-->
+  <div class="popup popup-edit">
+    <div class="popup__container popup__container-edit">
+      <button class="popup__button-close button popup__button-close-edit" type="button"></button>
+      <form class="popup__content popup__content-edit" name="edit-from">
+        <h4 class="popup__profile popup__profile-edit">Редактировать профиль</h4>
         <input class="popup__form popup__form_type_name" type="text" value="" name="name">
         <input class="popup__form popup__form_type_job" type="text" value="" name="job">
         <button class="popup__button-save" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
+<!-- popup добавить фото -->
+  <div class="popup popup-add">
+    <div class="popup__container popup__container-add">
+      <button class="popup__button-close button popup__button-close-add" type="button"></button>
+      <form class="popup__content popup__content-add" name="add-from">
+        <h4 class="popup__profile popup__profile-add">Новое место</h4>
+        <input class="popup__form popup__form_type_place" type="text" value="" placeholder="Название" name="place-name">
+        <input class="popup__form popup__form_type_link" type="url" value="" placeholder="Ссылка на картинку" name="link-place">
+        <button class="popup__button-save" type="submit">Создать</button>
+      </form>
+    </div>
+  </div>
+<!-- popup полноразмерное фото -->
+<div class="popup popup_photo-card">
+  <div class="popup__container-card">
+    <button class="popup__button-close button popup__button-close-photo" type="button"></button>
+    <img class="popup__img-card" alt="Полноразмерное фото" src="">
+    <h4 class="popup__title-card"></h4>
+  </div>
+</div>
+<!-- template -->
+  <template id="element">
+    <article class="element">
+      <img class="element__img" src="" alt="Фото места">
+      <button class="element__button-delete" type="button"></button>
+      <div class="element__info">
+        <h3 class="element__title"></h3>
+          <button class="element__button-like" type="button"></button>
+      </div>
+    </article>
+  </template>
+
   <script src="./scripts/index.js"></script>
 </body>
 
