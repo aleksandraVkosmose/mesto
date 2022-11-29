@@ -1,6 +1,6 @@
-/*попап Edit*/
+/*переменные для попап Edit*/
 const buttonEdit = document.querySelector(".profile__button-edit");
-const popupEdit = document.querySelector(".popup-edit");
+const popupEditProfile = document.querySelector(".popup-edit");
 const buttonCloseEdit = document.querySelector(".popup__button-close-edit");
 
 const formElementEdit = document.querySelector(".popup__content-edit");
@@ -9,9 +9,9 @@ const jobInput = document.querySelector(".popup__form_type_job");
 const profileTitle = document.querySelector(".profile__title");
 const profileSubtitle = document.querySelector(".profile__subtitle");
 
-/*попап Add*/
+/*переменные для попап Add*/
 const buttonAdd = document.querySelector(".profile__button-add");
-const popupAdd = document.querySelector(".popup-add");
+const popupAddCard = document.querySelector(".popup-add");
 const placeInput = document.querySelector(".popup__form_type_place");
 const linkInput = document.querySelector(".popup__form_type_link");
 const buttonCloseAdd = document.querySelector(".popup__button-close-add");
@@ -29,82 +29,57 @@ const popupImageCard = document.querySelector('.popup__img-card');
 const popupTitleCard = document.querySelector('.popup__title-card');
 const popupButtonClosePhoto = document.querySelector(".popup__button-close-photo");
 
+/*функция открытия попап*/
+const tagglePopap = function (popup){
+  popup.classList.toggle('popup_opened');
+}
+
 /*функция открытия попап Edit*/
-buttonEdit.addEventListener('click', openPopupEdit);
-function openPopupEdit() {
-  popupEdit.classList.add('popup_opened');
+buttonEdit.addEventListener('click', function(){
+tagglePopap(popupEditProfile)
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-};
+});
 
 /*функция закрытия попап Edit*/
-buttonCloseEdit.addEventListener('click', closePopupEdit);
-function closePopupEdit() {
-  popupEdit.classList.remove('popup_opened');
-};
+buttonCloseEdit.addEventListener('click', function(){
+  tagglePopap(popupEditProfile)
+});
 
+/*функция открытия для попап фото*/
+popupImageCard.addEventListener('click', function(){
+  tagglePopap(popupCardPhoto)
+  
+});
+
+/*функция закрытия для попап фото*/
+popupButtonClosePhoto.addEventListener('click', function(){
+  tagglePopap(popupCardPhoto)
+  
+});
+
+/*функция открытия попап Add*/
+buttonAdd.addEventListener('click', function(){
+  tagglePopap(popupAddCard) 
+  });
+  
+/*функция закрытия попап Add*/
+  
+  buttonCloseAdd.addEventListener('click', function(){
+    tagglePopap(popupAddCard)
+  });
 
 /* функция заполнения попап edit */
-formElementEdit.addEventListener('submit', formSubmitHandler);
+formElementEdit.addEventListener('submit', submitEditProfileForm);
 
-function formSubmitHandler(evt) {
+function submitEditProfileForm(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
-
-  closePopupEdit();
+  tagglePopap(popupEditProfile)
 };
 
-/*функция открытия попап Add*/
-
-buttonAdd.addEventListener('click', openPopupAdd);
-function openPopupAdd() {
-  popupAdd.classList.add('popup_opened');
-
-};
-
-/*функция закрытия попап Add*/
-
-buttonCloseAdd.addEventListener('click', closePopupAdd);
-function closePopupAdd() {
-  popupAdd.classList.remove('popup_opened');
-};
 /* функция заполнения попап add */
-formElementAdd.addEventListener('submit', formSubmitHandler1);
-
-function formSubmitHandler1(evt) {
-  evt.preventDefault();
-
-  closePopupAdd();
-};
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-]; 
-
 function createElement(card) {
 
 const elementClone = elementTemplate.cloneNode(true);
@@ -114,14 +89,14 @@ const elementDeleteButton = elementClone.querySelector('.element__button-delete'
 const elementLikeButton = elementClone.querySelector('.element__button-like');
 
 elementImg.src = card.link;
-elementTitle.textContent = card.name
-
+elementImg.alt = card.name;
+elementTitle.textContent = card.name;
 
 function handlePreviewImg() {
   popupImageCard.src = elementImg.src;
   popupImageCard.alt = elementTitle.textContent;
   popupTitleCard.textContent = elementTitle.textContent;
-  openPopupPhoto();
+  tagglePopap(popupCardPhoto);
   
 }
 
@@ -154,7 +129,7 @@ initialCards.forEach(function(card) {
 })
 
 
-const handleFormSubmit = (e) => {
+const submitAddCardForm = (e) => {
   e.preventDefault()
 
 // здесь мы сами создаем объект, который будем передавать в elementClone
@@ -162,25 +137,14 @@ const handleFormSubmit = (e) => {
     name: formInput.value,
     link: formLink.value
   }
-  formInput.value = '',
-  formLink.value = ''
+  e.target.reset();
 
   renderElementClone(elementClone, elements)
+  tagglePopap(popupAddCard);
 }
 
-formElementAdd.addEventListener('submit', handleFormSubmit )
-
-/*функция открытия для попап фото*/
-
-function openPopupPhoto() {
-  
-  popupCardPhoto.classList.add('popup_opened');
-  
-};
+formElementAdd.addEventListener('submit', submitAddCardForm )
 
 
-popupButtonClosePhoto.addEventListener('click', closePopupPhoto);
-function closePopupPhoto() {
-  popupCardPhoto.classList.remove('popup_opened');
-  
-};
+
+
