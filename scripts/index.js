@@ -39,39 +39,28 @@ function closeByEsc(evt) {
     const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup); 
   }
-}  
+}
+
+/*функция закрытия попапов кликом вне попап и крестиком*/
+document.querySelectorAll('.popup').forEach( popup => {
+  popup.addEventListener('mousedown', (evt) => { 
+    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__button-close')) { 
+      closePopup(popup); 
+    }; 
+  }); 
+}); 
 
 /*функция открытия попап*/
 const openPopup = function (popup){
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeByEsc);
 }
+
 /*функция закрытия попап*/
 const closePopup = function (popup){
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeByEsc);
 }
-
-/*функция закрытия попап edit кликом вне попап*/
-popupEditProfile.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup_opened') && evt.target.classList.contains('popup')){
-    closePopup(evt.target);
-  }
-})
-
-/*функция закрытия попап Add кликом вне попап*/
-popupAddCard.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup_opened') && evt.target.classList.contains('popup')){
-    closePopup(evt.target);
-  }
-})
-
-/*функция закрытия для попап фото кликом вне попап*/
-popupCardPhoto.addEventListener('click', (evt) => {
-  if (evt.target.classList.contains('popup_opened') && evt.target.classList.contains('popup')){
-    closePopup(evt.target);
-  }
-})
 
 /*функция открытия попап Edit*/
 buttonEdit.addEventListener('click', function(){
@@ -80,33 +69,14 @@ buttonEdit.addEventListener('click', function(){
   jobInput.value = profileSubtitle.textContent;
 });
 
-/*функция закрытия попап Edit*/
-buttonCloseEdit.addEventListener('click', function(){
-  closePopup(popupEditProfile)
-});
-
-
 /*функция открытия для попап фото*/
 popupImageCard.addEventListener('click', function(){
   openPopup(popupCardPhoto)
 });
 
-/*функция закрытия для попап фото*/
-popupButtonClosePhoto.addEventListener('click', function(){
-
-  closePopup(popupCardPhoto)
-  
-});
-
 /*функция открытия попап Add*/
 buttonAdd.addEventListener('click', function(){
   openPopup(popupAddCard) 
-  });
-  
-/*функция закрытия попап Add*/
-  
-  buttonCloseAdd.addEventListener('click', function(){
-    closePopup(popupAddCard)
   });
 
 /* функция заполнения попап edit */
@@ -177,7 +147,7 @@ const submitAddCardForm = (e) => {
     link: formLink.value
   }
   e.target.reset();
-
+  disableButton(e.submitter, settings)
   renderElementClone(elementClone, elements)
   closePopup(popupAddCard);
   

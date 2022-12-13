@@ -24,17 +24,22 @@ const isValid = (settings, input) => {
     hideInputError(settings, input);
   }
 };
+
+// Функция сделает кнопку неактивной
+const disableButton = (buttonElement, settings) => {
+  buttonElement.setAttribute('disabled', true);
+  buttonElement.classList.add(settings.inactiveButtonClass);
+}
+
 // Функция принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
-const toggleButtonState = (inputList, buttonElement) => {
+const toggleButtonState = (settings, inputList, buttonElement) => {
   const hasInvalidInput = inputList.every(input => input.validity.valid)
   // Если все инпуты валидны сделай кнопку активной
   if (hasInvalidInput) {
     buttonElement.removeAttribute('disabled', false);
     buttonElement.classList.remove(settings.inactiveButtonClass);
-  } else {
-    // иначе сделай кнопку неактивной
-    buttonElement.setAttribute('disabled', true);
-    buttonElement.classList.add(settings.inactiveButtonClass);
+  } else{
+    disableButton(buttonElement, settings)
   }
 }; 
 
@@ -45,16 +50,12 @@ const enableValidation = (settings) => {
     const inputList = [...formElement.querySelectorAll(inputSelector)];
     const buttonElement = formElement.querySelector(submitButtonSelector);
 
-    formElement.addEventListener('reset', () => {
-      setTimeout(() => {
-        toggleButtonState( inputList, buttonElement);
-      }, 0);
-    })
+    toggleButtonState(settings, inputList, buttonElement);
 
     inputList.forEach(input => {
       input.addEventListener('input', () => {
        isValid(resetSettings, input)
-        toggleButtonState(inputList, buttonElement);
+        toggleButtonState(settings, inputList, buttonElement);
       });
     });
   });
