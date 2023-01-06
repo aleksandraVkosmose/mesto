@@ -1,11 +1,8 @@
 export default class FormValidator {
   constructor(settings, formElement) {
     this._form = formElement;
-    //this._settings = settings;
     this._inputList = Array.from(formElement.querySelectorAll(settings.inputSelector)); 
     this._buttonElement = formElement.querySelector(settings.submitButtonSelector); //buttonElement - submit
-    // this._inputSelector = settings.inputSelector;
-    // this._submitButtonSelector = settings.submitButtonSelector;
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
@@ -36,11 +33,13 @@ _isValid = (input) => {
   }
 };
 
-// Функция сделает кнопку неактивной
-// _disableButton = (buttonElement) => {
-//   buttonElement.setAttribute('disabled', true);
-//   buttonElement.classList.add(this._setting.inactiveButtonClass);
-// }
+//метод для очистки ошибок и управления кнопкой
+resetValidation() {
+  this._toggleButtonState(); //управляем кнопкой
+  this._inputList.forEach((input) => {
+    this._hideInputError(input) //очищаем ошибки
+  });
+}
 
 // Функция принимает массив полей ввода и элемент кнопки, состояние которой нужно менять
 _toggleButtonState = () => {
@@ -57,7 +56,8 @@ _toggleButtonState = () => {
 }; 
 
 _setEventListeners() {
- 
+  this._toggleButtonState();
+  
   this._inputList.forEach((input) => {
     input.addEventListener('input', () => {
       this._isValid(input);
@@ -65,6 +65,7 @@ _setEventListeners() {
     });
   });
 }
+
 enableValidation() {
   this._setEventListeners();
 }

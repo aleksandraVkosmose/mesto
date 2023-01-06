@@ -1,12 +1,22 @@
 import Card from "./Card.js";
-import FormValidator from "./validate.js"
+import FormValidator from "./FormValidator.js"
+
+const settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button-save',
+  inactiveButtonClass: 'popup__button-save_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+}; 
+
 /*переменные для попап Edit*/
 const buttonEdit = document.querySelector(".profile__button-edit");
 const popupEditProfile = document.querySelector(".popup-edit");
 const buttonCloseEdit = document.querySelector(".popup__button-close-edit");
 const popupContainer = document.querySelector('.popup');
 
-const formElementEdit = document.querySelector(".popup__form-edit");
+const formElementEdit = document.forms["edit-from"];
 const nameInput = document.querySelector(".popup__input_type_name");
 const jobInput = document.querySelector(".popup__input_type_job");
 const profileTitle = document.querySelector(".profile__title");
@@ -18,7 +28,7 @@ const popupAddCard = document.querySelector(".popup-add");
 const placeInput = document.querySelector(".popup__input_type_place");
 const linkInput = document.querySelector(".popup__input_type_link");
 const buttonCloseAdd = document.querySelector(".popup__button-close-add");
-const formElementAdd = document.querySelector(".popup__form-add");
+const formElementAdd = document.forms["add-from"];
 
 const elements = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#element').content.querySelector('.element');
@@ -37,6 +47,9 @@ const inactiveButtonClass = document.querySelector(".popup__button-save_disabled
 
 const elementDeleteButton = document.querySelector('.element__button-delete');
 const elementLikeButton = document.querySelector('.element__button-like');
+
+const popupEditProfileValidator = new FormValidator(settings, popupEditProfile);
+const popupAddCardValidator = new FormValidator(settings, popupAddCard);
 
 /*функция закрытия попап ESC*/
 function closeByEsc(evt) {
@@ -72,16 +85,19 @@ buttonEdit.addEventListener('click', function(){
   openPopup(popupEditProfile)
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
+  popupEditProfileValidator.resetValidation();
 });
 
 /*функция открытия для попап фото*/
-popupImageCard.addEventListener('click', function(){
+elementTemplate.addEventListener('click', function(){
   openPopup(popupCardPhoto)
 });
 
 /*функция открытия попап Add*/
 buttonAdd.addEventListener('click', function(){
+  formElementAdd.reset();
   openPopup(popupAddCard) 
+  popupAddCardValidator.resetValidation();
   });
 
 /* функция заполнения попап edit */
@@ -99,10 +115,10 @@ function createElement(item) {
   const cardElement = card.generateCard();
   return cardElement;
 
-function handlePreviewImg() {
-  popupImageCard.src = this._link;
-  popupImageCard.alt = this._name;
-  popupTitleCard.textContent = this._name;
+function handlePreviewImg(name, link) {
+  popupImageCard.src = link;
+  popupImageCard.alt = name;
+  popupTitleCard.textContent = name;
   openPopup(popupCardPhoto);
   }
 }
@@ -117,7 +133,9 @@ initialCards.forEach(function(item) {
 })
 
 const submitAddCardForm = (e) => {
+  
   e.preventDefault()
+  
 
 //здесь мы сами создаем объект, который будем передавать в cardElement
   const cardElement = {
@@ -125,33 +143,11 @@ const submitAddCardForm = (e) => {
     link: formLink.value
   }
 
-  e.target.reset();
-  disableButton(e.submitter, settings)
   renderElementClone(cardElement, elements)
   closePopup(popupAddCard);
-  
 }
 
 formElementAdd.addEventListener('submit', submitAddCardForm );
 
-const settings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button-save',
-  inactiveButtonClass: 'popup__button-save_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-}; 
-
-const popupEditProfileValidator = new FormValidator(settings, popupEditProfile);
-const popupAddCardValidator = new FormValidator(settings, popupAddCard);
-
-
 popupEditProfileValidator.enableValidation();
 popupAddCardValidator.enableValidation();
-
-
-const disableButton = (buttonElement) => {
-  buttonElement.setAttribute('disabled', true);
-  buttonElement.classList.add('popup__button-save_disabled');
-}
