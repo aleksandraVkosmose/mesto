@@ -1,5 +1,6 @@
  export default class Card {
     constructor (data, elementTemplate, handlePreviewImg) {
+      this._data = data;
       this._name = data.name;
       this._link = data.link;
       this._elementTemplate = elementTemplate;
