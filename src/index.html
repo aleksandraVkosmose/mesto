@@ -13,7 +13,10 @@
   </header>
   <main class="main">
     <section class="profile">
+      <div class="profile__card">
       <img class="profile__avatar" src="<%=require('./images/image.jpg')%>" alt="аватар">
+      <button class="profile__avatar-button" aria-label="открыть форму обновления аватара профиля"></button>
+      </div>
       <div class="profile__info">
         <h1 class="profile__title">Жак-Ив Кусто</h1>
         <button class="profile__button-edit button" type="button"></button>
@@ -38,7 +41,7 @@
         <h4 class="popup__profile popup__profile-edit">Редактировать профиль</h4>
         <input class="popup__input popup__input_type_name" id="name-input" type="text" value="" name="name" placeholder="Имя" minlength="2" maxlength="40" required>
         <span class="popup__input-error name-input-error"></span>
-        <input class="popup__input popup__input_type_job" id="job-input" type="text" value="" name="job" placeholder="О себе" minlength="2" maxlength="200" required>
+        <input class="popup__input popup__input_type_job" id="job-input" type="text" value="" name="about" placeholder="О себе" minlength="2" maxlength="200" required>
         <span class="popup__input-error job-input-error"></span>
         <button class="popup__button-save" type="submit">Сохранить</button>
       </form>
@@ -66,6 +69,28 @@
     <h4 class="popup__title-card"></h4>
   </div>
 </div>
+<!-- popup редактировать аватар-->
+<div class="popup popup-avatar">
+  <div class="popup__container popup__container-avatar">
+    <button class="popup__button-close button popup__button-close-avatar" type="button"></button>
+    <form class="popup__form popup__form-avatar" name="avatar-from" novalidate>
+      <h4 class="popup__profile popup__profile-avatar">Обновить аватар</h4>
+      <input class="popup__input popup__input_type_avatar" id="avatar-input" type="text" value="" name="avatar" placeholder="Ссылка на аватар" minlength="2" maxlength="200" required>
+      <span class="popup__input-error job-input-error"></span>
+      <button class="popup__button-save" type="submit">Сохранить</button>
+    </form>
+  </div>
+</div>
+<!-- popup подтверждения-->
+<div class="popup popup-confirm">
+  <div class="popup__container popup__container-confirm">
+    <button class="popup__button-close button popup__button-close-confirm" type="button"></button>
+    <form class="popup__form popup__form-confirm" name="confirm-from" novalidate>
+      <h4 class="popup__profile popup__profile-confirm">Вы уверены?</h4>
+      <button class="popup__button-save" type="submit">Да</button>
+    </form>
+  </div>
+</div>
 <!-- template -->
   <template id="element">
     <article class="element">
@@ -73,7 +98,10 @@
       <button class="element__button-delete" type="button"></button>
       <div class="element__info">
         <h3 class="element__title"></h3>
+        <div class="element__like-container">
           <button class="element__button-like" type="button"></button>
+          <span class="element__like-count">0</span>
+        </div>
       </div>
     </article>
   </template>

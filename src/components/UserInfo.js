@@ -1,19 +1,27 @@
 export default class UserInfo {
-constructor({nameSelector, jobSelector}){
-    this._nameElement = nameSelector;
-    this._jobElement = jobSelector;
-}
-//получение информации о пользователе
-getUserInfo(){
-  const profileInfo = {}
-  profileInfo.name = this._nameElement.textContent;
-  profileInfo.job = this._jobElement.textContent;
-
-  return profileInfo;
+  constructor({nameSelector, aboutSelector}){
+      this._nameElement = nameSelector;
+      this._aboutElement = aboutSelector;
+      this._avatarElement = document.querySelector(".profile__avatar")
   }
-//установка информации о пользователе
-  setUserInfo({name, job}){
-  this._nameElement.textContent = name;
-  this._jobElement.textContent = job;
-}
+  
+  getUserInfo(){
+    const data = {
+    name: this._nameElement.textContent,
+    about: this._aboutElement.textContent,
+    avatar: this._avatarElement.src
+    }
+    return data;
+  }
+
+  setUserAvatar(data) {
+    this._avatarElement.src = data.avatar;
+  }
+  
+  setUserInfo(data){
+    this._nameElement.textContent = data.name;
+    this._aboutElement.textContent = data.about;
+       this.setUserAvatar(data);
+    //  this._avatarElement.alt = `${data.name} avatar`;
+  }
 }

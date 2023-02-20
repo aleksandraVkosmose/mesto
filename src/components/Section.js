@@ -1,17 +1,20 @@
 export default class Section {
-  constructor ({data, renderer}, containerSelector) {
-    this._initialArray = data;
-    this._renderer = renderer;
-    this._container = containerSelector;
+  constructor({renderer}, elements) {
+    //this._initialArray = data;
+    this._container = elements;
+    this._renderer = renderer; 
   }
-//публичный метод, отвечвющий за отрисовку карточек
-  renderItems() {
-    this._initialArray.forEach((item) => {
-        this._renderer(item);
+  renderItems(data) {
+    data.forEach((item) => {
+      this._renderer(item);
     });
   }
-//публичный метод, применяет DOM-элемент и добавляет его в контейнер elements
-  addItem(item){
+
+addItem(item, place = 'prepend') {
+  if (place === 'append') {
+    this._container.append(item);
+  } else {
     this._container.prepend(item);
   }
+}
 }

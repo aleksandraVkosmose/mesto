@@ -38,7 +38,7 @@
   export const popupEditProfile = document.querySelector(".popup-edit");
   
   export const nameInput = document.querySelector(".popup__input_type_name");
-  export const jobInput = document.querySelector(".popup__input_type_job");
+  export const aboutInput = document.querySelector(".popup__input_type_job");
   export const profileTitle = document.querySelector(".profile__title");
   export const profileSubtitle = document.querySelector(".profile__subtitle");
   
@@ -51,3 +51,10 @@
   export const elementTemplate = document.querySelector('#element').content.querySelector('.element');
   export const formName = document.querySelector('[name="place-name"]');
   export const formLink = document.querySelector('[name="link-place"]');
+
+  export const avatarInput = document.querySelector(".popup__input_type_avatar");
+  export const avatar = document.querySelector(".profile__avatar");
+  export const popupConfirm = document.querySelector(".popup-confirm")
+
+  export const buttonEditAvatar = document.querySelector('.profile__avatar-button');
+  export const popupAvatar = document.querySelector(".popup-avatar");
