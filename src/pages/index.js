@@ -22,7 +22,8 @@ import {
   elements,
   avatar,
   avatarInput,
-  buttonEditAvatar
+  buttonEditAvatar,
+  popupAvatar
 } from "../utils/constants.js";
 import PopupWithSubmit from "../components/PopupWithSubmit.js";
 
@@ -35,7 +36,7 @@ const api = new Api({
   }
 });
 
-let userId; 
+let userId;
 
 // Загрузка готовых карточек и данных о пользователе с сервера
 Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -51,32 +52,33 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 
 // /* ------------------- Профиль юзера ------------------- */
 
-  const userInfo = new UserInfo({
-    nameSelector: profileTitle,
-    aboutSelector: profileSubtitle,
-    avatarSelector: avatar
-  });
+const userInfo = new UserInfo({
+  nameSelector: profileTitle,
+  aboutSelector: profileSubtitle,
+  avatarSelector: avatar
+});
 
 // создание попапа с формой редактирования профиля 
 const popupWithEditForm = new PopupWithForm(".popup-edit", {
   submit: (data) => {
-   // popupWithEditForm.renderLoading(true, 'Загрузка...');
+    popupWithEditForm.renderLoading(true, 'Загрузка...');
     api.setUserInfo(data)
       .then((res) => {
         userInfo.setUserInfo(res);
+        popupWithEditForm.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        //popupWithEditForm.renderLoading(false);
-        popupWithEditForm.close();
+        popupWithEditForm.renderLoading(false);
+
       })
   }
 })
 
 /*функция открытия попап Edit*/
-buttonEdit.addEventListener('click', function() {
+buttonEdit.addEventListener('click', function () {
   popupWithEditForm.open()
   const userData = userInfo.getUserInfo();
   nameInput.value = userData.name;
@@ -89,20 +91,23 @@ popupWithEditForm.setEventListeners();
 // Создание попапа редактирования аватара пользователя
 const popupAvatarForm = new PopupWithForm(".popup-avatar", {
   submit: (data) => {
-   // popupWithAvatarForm.renderLoading(true, 'Загрузка...');
+    popupAvatarForm.renderLoading(true, 'Загрузка...');
     api.editAvatar(data)
-      .then((data) => {
-        avatar.src = data.avatar;
+      .then((res) => {
+        userInfo.setUserInfo(res);
+        popupAvatarForm.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        popupAvatarForm.close();
+        popupAvatarForm.renderLoading(false);
+
       })
   }
 })
 buttonEditAvatar.addEventListener('click', function () {
+  popupAvatarFormValidator.resetValidation();
   popupAvatarForm.open()
 })
 popupAvatarForm.setEventListeners();
@@ -119,7 +124,7 @@ const createElement = (data) => {
       photoPopup.open(name, link);
     },
     handleDeleteIconClick: (cardId) => {
-      deleteCardPopup.submitCallback(() => {
+      deleteCardPopup.setSubmitCallback(() => {
         api.deleteCard(cardId)
           .then(() => {
             deleteCardPopup.close();
@@ -148,7 +153,7 @@ const createElement = (data) => {
         .catch((err) => {
           console.log(`Ошибка: ${err}`);
         });
-      }
+    }
   })
 
   const cardElement = card.generateCard();
@@ -164,18 +169,19 @@ const cardsList = new Section({
 
 const popupWithAddForm = new PopupWithForm(".popup-add", {
   submit: (data) => {
-    //popupWithAddForm.renderLoading(true);
+    popupWithAddForm.renderLoading(true);
     api.postCard(data)
       .then((res) => {
         const cardElement = createElement(res)
         cardsList.addItem(cardElement);
+        popupWithAddForm.close()
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        //popupWithAddForm.renderLoading(false);
-        popupWithAddForm.close()
+        popupWithAddForm.renderLoading(false);
+
       })
   }
 })
@@ -188,7 +194,7 @@ deleteCardPopup.setEventListeners();
 
 /*функция открытия попап Add*/
 buttonAdd.addEventListener('click', function () {
-  formElementAdd.reset();
+
   popupWithAddForm.open();
   popupAddCardValidator.resetValidation();
 });
@@ -203,3 +209,6 @@ popupEditProfileValidator.enableValidation();
 
 const popupAddCardValidator = new FormValidator(settings, popupAddCard);
 popupAddCardValidator.enableValidation();
+
+const popupAvatarFormValidator = new FormValidator(settings, popupAvatar);
+popupAvatarFormValidator.enableValidation();

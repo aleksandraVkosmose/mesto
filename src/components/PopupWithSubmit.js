@@ -1,12 +1,12 @@
 import Popup from "./Popup.js";
 export default class PopupWithSubmit extends Popup {
   constructor({ popupSelector }) {
-    
+
     super(popupSelector);
-    this._form = document.querySelector('.popup__form-confirm');
+    this._form = this._popup.querySelector('.popup__form-confirm');
   }
   //принимает коллбэк на удаление карточки
-  submitCallback(callback) {
+  setSubmitCallback(callback) {
     this._handleSubmit = callback;
   }
 
